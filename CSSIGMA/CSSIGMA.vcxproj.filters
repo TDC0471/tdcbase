@@ -16,6 +16,18 @@
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{72a3bb76-0e85-4213-a0f5-39691c18f40e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{c0326534-0210-45e2-8f00-9e8a1ee5a985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hooking">
+      <UniqueIdentifier>{abab515e-448e-4ee2-8d4a-ed0529d3ff3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{77c0dfd7-18b8-4da5-84a8-09de94282f0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\hookinh">
+      <UniqueIdentifier>{138ac818-b75c-461f-b6ad-03967dd14250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -48,11 +60,26 @@
     <ClCompile Include="ManualLibrary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VEHHook.cpp">
+    <ClCompile Include="util.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShadowVmtHook.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Hooking</Filter>
+    </ClCompile>
+    <ClCompile Include="VEHHook.cpp">
+      <Filter>Source Files\Hooking</Filter>
+    </ClCompile>
+    <ClCompile Include="DxHooks.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="console.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="VEHD3D11Hooker.cpp">
+      <Filter>Source Files\Rendering\hookinh</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,17 +116,34 @@
     <ClInclude Include="ManualLibrary.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="ShadowVmtHook.h">
+      <Filter>Source Files\Hooking</Filter>
     </ClInclude>
     <ClInclude Include="VEHHook.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="DxHooks.h">
+      <Filter>Source Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionScrapper.h">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
     <ClInclude Include="console.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\util</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowVmtHook.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="ID3D11Hooker.h">
+      <Filter>Source Files\Rendering\hookinh</Filter>
     </ClInclude>
+    <ClInclude Include="VEHD3D11Hooker.h">
+      <Filter>Source Files\Rendering\hookinh</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Files\Rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="iwojhea.cpp">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

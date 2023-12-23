@@ -17,7 +17,8 @@ namespace memory
 	// call non-virtual function @ given address
 	template <typename Return, typename... Arguments>
 	constexpr Return OCall(void* classInstance, void* address, Arguments... args) noexcept {
-		return ((Return(__thiscall*)(void*, Arguments...))address)(classInstance, args...);
+		using Function = Return(*)(void*, Arguments...);
+		return (reinterpret_cast<Function>(address))(classInstance, args...);
 	}
 
 
@@ -28,20 +29,18 @@ namespace memory
 	}
 
 	template <typename T>
-	T read(uint32_t address)
+	T read(void* address)
 	{
 		return *reinterpret_cast<T*>(address);
 	}
 
 	template <typename T>
-	void write(uint32_t address, T value)
+	void write(void* address, T value)
 	{
 		*reinterpret_cast<T*>(address) = value;
 	}
 
-	void NOPout(uint32_t&& address, size_t size);
-
-	void writeBytes(uint32_t&& destination, const void* source, size_t size);
+	void writeBytes(void* destination, const void* source, size_t size);
 
 	BYTE* PatternScan(LPCSTR moduleName, const char* pattern) noexcept;
 

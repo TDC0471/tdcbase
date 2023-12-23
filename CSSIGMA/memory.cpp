@@ -3,15 +3,9 @@
 
 
 
-void memory::NOPout(uint32_t&& address, size_t size)
-{
-    DWORD oldProtect;
-    VirtualProtect((LPVOID)address, size, PAGE_EXECUTE_READWRITE, &oldProtect);
-    memset((LPVOID)address, 0x90, size);
-    VirtualProtect((LPVOID)address, size, oldProtect, &oldProtect);
-}
 
-void memory::writeBytes(uint32_t&& destination, const void* source, size_t size)
+
+void memory::writeBytes(void* destination, const void* source, size_t size)
 {
     LPVOID dest = reinterpret_cast<LPVOID>(destination);
     DWORD oldProtect;

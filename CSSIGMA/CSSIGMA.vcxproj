@@ -152,7 +152,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="console.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="DxHooks.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -160,13 +162,20 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <None Include="iwojhea.cpp" />
     <ClCompile Include="ManualLibrary.cpp" />
     <ClCompile Include="memory.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ShadowVmtHook.cpp" />
+    <ClCompile Include="util.h" />
+    <ClCompile Include="VEHD3D11Hooker.cpp" />
     <ClCompile Include="VEHHook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console.h" />
+    <ClInclude Include="DxHooks.h" />
+    <ClInclude Include="FunctionScrapper.h" />
+    <ClInclude Include="ID3D11Hooker.h" />
     <ClInclude Include="imguiincl.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -180,6 +189,7 @@
     <ClInclude Include="memory.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ShadowVmtHook.h" />
+    <ClInclude Include="VEHD3D11Hooker.h" />
     <ClInclude Include="VEHHook.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

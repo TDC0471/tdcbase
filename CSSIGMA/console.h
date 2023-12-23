@@ -3,20 +3,8 @@
 #include <cstdarg>
 
 namespace c {
-#define MAXPRINTSIZE 1024
-    std::string console{};
 
-    int printf(const char* fmt, ...) {
-        va_list args;
-        va_start(args, fmt);
-        char buffer[MAXPRINTSIZE];
-        int ret = vsnprintf(buffer, sizeof(buffer), fmt, args);
-        va_end(args);
+    int printf(const char* fmt, ...);
 
-        if (ret >= 0) {
-            console += buffer;
-        }
-
-        return ret;
-    }
+    std::string* get();
 }

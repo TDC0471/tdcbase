@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 struct VirtualMethod
 {
@@ -13,12 +14,19 @@ class ShadowVmtHook
     void* baseclass;
 
 public:
-    ShadowVmtHook() {} //delete later
+    void* getOriginalFunction(size_t index);
 
-    ShadowVmtHook(const void* ptr_to_class, size_t vtableSize, size_t amountPassed, ...);
+    ShadowVmtHook() = default;
+    ShadowVmtHook(const void* ptr_to_class, size_t vtableSize, std::initializer_list<VirtualMethod>&& methods); //could be constexpr
 
-    //ShadowVmtHook(const ShadowVmtHook&) = delete;
-    //ShadowVmtHook& operator=(const ShadowVmtHook&) = delete;
+    ShadowVmtHook(const ShadowVmtHook&) = delete;
+    ShadowVmtHook& operator=(const ShadowVmtHook&) = delete;
+
+    //implement move constructor and assignment operator
+    ShadowVmtHook(ShadowVmtHook&&) = default;
+    ShadowVmtHook& operator=(ShadowVmtHook&&) = default;
+
+    void deleteHook();
 
     ~ShadowVmtHook();
 };

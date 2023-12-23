@@ -1,13 +1,15 @@
 #include "ShadowVmtHook.h"
 #include <Windows.h>
-#include <cstdarg>
 #include <memoryapi.h>
 #include <cstring>
 
-ShadowVmtHook::ShadowVmtHook(const void* ptr_to_class, size_t vtableSize, size_t amountPassed, ...)
+void* ShadowVmtHook::getOriginalFunction(size_t index)
 {
-    va_list args;
-    va_start(args, amountPassed);
+    return oldvmt[index];
+}
+
+ShadowVmtHook::ShadowVmtHook(const void* ptr_to_class, size_t vtableSize, std::initializer_list<VirtualMethod>&& methods)
+{
 
     baseclass = const_cast<void*>(ptr_to_class); //just doing this so the functions sig is a bit more clear
 
@@ -16,23 +18,28 @@ ShadowVmtHook::ShadowVmtHook(const void* ptr_to_class, size_t vtableSize, size_t
 
     std::memcpy(newvmt, vtable, vtableSize * sizeof(void*));
 
-    for (size_t i = 0; i < amountPassed; i++)
+    for (VirtualMethod method : methods)
     {
-        VirtualMethod j = va_arg(args, VirtualMethod);
-        newvmt[j.index] = j.fn;
+        newvmt[method.index] = method.fn;
     }
 
 
     //set the vtable pointer to our new vtable
     *reinterpret_cast<void***>(baseclass) = newvmt;
 
-    va_end(args);
-
     oldvmt = vtable;
+}
+
+void ShadowVmtHook::deleteHook()
+{
+    if (newvmt) {
+        *reinterpret_cast<void***>(baseclass) = oldvmt;
+        VirtualFree(newvmt, 0, MEM_RELEASE);
+        newvmt = nullptr;
+    }
 }
 
 ShadowVmtHook::~ShadowVmtHook()
 {
-    *reinterpret_cast<void***>(baseclass) = oldvmt;
-    VirtualFree(newvmt, 0, MEM_RELEASE);
+    deleteHook();
 }
