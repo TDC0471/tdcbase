@@ -90,14 +90,15 @@ void Renderer::CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstR
 
 	if (streamproof) 
 	{
-		//if (lastinvaildaddress != returnAddress) 
-		//{
-		//	if (cmpncend(memory::GetModuleName(returnAddress).get(), "DiscordHook64.dll")) //could make a function for this "isAddressInModule"
-		//	{
-		//		return;
-		//	}
-		//	lastinvaildaddress = returnAddress;
-		//}
+
+		if (lastinvaildaddress != returnAddress) 
+		{
+			if (!cmpncend(memory::GetModuleName(returnAddress).get(), "DiscordHook64.dll")) //could make a function for this "isAddressInModule"
+			{
+				return;
+			}
+			lastinvaildaddress = returnAddress;
+		}
 		pSrcResource = pCapturedFrame;
 	}
 	
