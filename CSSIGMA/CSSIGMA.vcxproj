@@ -162,12 +162,9 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <None Include="iwojhea.cpp" />
-    <ClCompile Include="ManualLibrary.cpp" />
     <ClCompile Include="memory.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ShadowVmtHook.cpp" />
-    <ClCompile Include="util.h" />
     <ClCompile Include="VEHD3D11Hooker.cpp" />
     <ClCompile Include="VEHHook.cpp" />
   </ItemGroup>
@@ -187,7 +184,6 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="IObserver.h" />
-    <ClInclude Include="ManualLibrary.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ShadowVmtHook.h" />

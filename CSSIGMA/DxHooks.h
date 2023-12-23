@@ -8,6 +8,7 @@
 
 namespace DxHooks
 {
+	//ill accept these heap allocations for now
 	inline Renderer* renderer{};
 	inline ID3D11Hooker* hooker{};
 

@@ -30,8 +30,7 @@ DWORD WINAPI MainThread(HMODULE hmod)
 		Sleep(100);
 	}
 
-	//VirtualFree(pSwapChain, 0, MEM_RELEASE);
-
+	FreeLibraryAndExitThread(hmod, 0);
 	return TRUE;
 }
 

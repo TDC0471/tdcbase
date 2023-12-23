@@ -93,7 +93,7 @@ void Renderer::CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstR
 
 		if (lastinvaildaddress != returnAddress) 
 		{
-			if (!cmpncend(memory::GetModuleName(returnAddress).get(), "DiscordHook64.dll")) //could make a function for this "isAddressInModule"
+			if (!cmpncend(memory::GetModuleName(returnAddress).get(), "DiscordHook64.dll")) //could make a function for this "isAddressInModule" if we ever use this again
 			{
 				return;
 			}
