@@ -1,9 +1,15 @@
 #include "memory.h"
 
 
+std::unique_ptr<char[]> memory::GetModuleName(void* address) noexcept
+{
+    MEMORY_BASIC_INFORMATION mbi;
+    if (!VirtualQuery(address, &mbi, sizeof(mbi))) return nullptr;
 
-
-
+    std::unique_ptr<char[]> module(new char[MAX_PATH]);
+    if (!GetModuleFileNameA((HMODULE)mbi.AllocationBase, module.get(), MAX_PATH)) return nullptr;
+    return (module); 
+}
 
 void memory::writeBytes(void* destination, const void* source, size_t size)
 {

@@ -9,8 +9,9 @@ LRESULT DxHooks::hkWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 void DxHooks::hkCopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
 {
 	using f_CopyResource = void(__stdcall*)(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource);
-	static f_CopyResource oCopyResource{ (f_CopyResource)hooker->getSwapChainVmtFunction(FunctionScrapper::indexOfVirtual(&ID3D11DeviceContext::CopyResource)) }; //initalized at first call
-	oCopyResource(pContext, pDstResource, renderer->CopyResource(pContext, pDstResource, pSrcResource));
+	static f_CopyResource oCopyResource{ (f_CopyResource)hooker->getDeviceContextVmtFunction(FunctionScrapper::indexOfVirtual(&ID3D11DeviceContext::CopyResource)) }; //initalized at first call
+	renderer->CopyResource(pContext, pDstResource, pSrcResource);
+	oCopyResource(pContext, pDstResource, pSrcResource);
 }
 
 HRESULT DxHooks::hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)

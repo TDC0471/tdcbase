@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Rendering\hookinh">
       <UniqueIdentifier>{138ac818-b75c-461f-b6ad-03967dd14250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Observer">
+      <UniqueIdentifier>{0003a233-ea33-4b08-8bfb-a0b5712ad346}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -139,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Source Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>Source Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="IEvent.h">
+      <Filter>Source Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

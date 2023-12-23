@@ -26,8 +26,6 @@ namespace DxHooks
 		printf("Hooker created: %p\n", hooker);
 		hooker->init();
 		printf("Hooker created: %p\n", hooker);
-
-		while (true) Sleep(1000);
 	}
 
 	IDXGISwapChain* dummySwapchain();

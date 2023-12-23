@@ -2,6 +2,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <vector>
+#include <memory>
 
 namespace memory
 {
@@ -21,6 +22,9 @@ namespace memory
 		return (reinterpret_cast<Function>(address))(classInstance, args...);
 	}
 
+
+	// get module name from address
+	std::unique_ptr<char[]> GetModuleName(void* address) noexcept;
 
 	// get void pointer to virtual function @ given index
 	constexpr void* Get(void* vmt, const std::uint32_t index) noexcept

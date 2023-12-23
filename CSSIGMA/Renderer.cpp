@@ -1,13 +1,10 @@
 #include "Renderer.h"
-
-void Renderer::AddCallback(f_Callback callback) noexcept
-{
-	callbacks.push_back(callback);
-}
+#include "memory.h"
+#include "utils.h"
 
 void Renderer::Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
 {
-	c::printf("Present called\n");
+	//c::printf("Present called\n");
 	static bool init = false;
 	if (!init)
 	{
@@ -15,11 +12,11 @@ void Renderer::Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags
 
 		pDevice->GetImmediateContext(&pContext);
 		DXGI_SWAP_CHAIN_DESC sd;
-		pSwapChain->GetDesc(&sd);
+		if (FAILED(pSwapChain->GetDesc(&sd))) return;
 		window = sd.OutputWindow;
 		ID3D11Texture2D* pBackBuffer;
-		pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-		pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
+		if (FAILED(pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer))) return;
+		if (FAILED(pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView))) return;
 		pBackBuffer->Release();
 
 		ImGui::CreateContext();
@@ -62,9 +59,7 @@ void Renderer::Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-
-	for (auto& callback : callbacks)
-		callback();
+	//call callbacks
 
 	ImGui::Begin("ImGui Window");
 	ImGui::Checkbox("Streamproof", &streamproof);
@@ -88,11 +83,25 @@ void Renderer::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 }
 
-ID3D11Resource* Renderer::CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+void Renderer::CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource*& pSrcResource, void* returnAddress)
 {
-	if (streamproof)
-		return pCapturedFrame;
-	return pSrcResource;
+	static void* lastinvaildaddress = nullptr;
+	//virtual query if Return address is in a disallowed module (For now just Discord)
+
+	if (streamproof) 
+	{
+		//if (lastinvaildaddress != returnAddress) 
+		//{
+		//	if (cmpncend(memory::GetModuleName(returnAddress).get(), "DiscordHook64.dll")) //could make a function for this "isAddressInModule"
+		//	{
+		//		return;
+		//	}
+		//	lastinvaildaddress = returnAddress;
+		//}
+		pSrcResource = pCapturedFrame;
+	}
+	
+
 }
 
 bool Renderer::copybb(IDXGISwapChain* pSwapChain, ID3D11DeviceContext* pContext)

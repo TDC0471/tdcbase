@@ -9,6 +9,7 @@
 #include "ID3D11Hooker.h"
 #include "FunctionScrapper.h"
 #include "ID3D11Hooker.h"
+#include <intrin.h>
 
 class Renderer
 {
@@ -23,8 +24,6 @@ class Renderer
 
 	bool streamproof = true;
 
-	using f_Callback = void(*)(void);
-	std::vector<f_Callback> callbacks;
 public:
 
 	//Renderer() = delete;
@@ -39,14 +38,11 @@ public:
 		return window;
 	}
 
-	void AddCallback(f_Callback callback) noexcept;
-
-
 	void Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 
 	void WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	ID3D11Resource* CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource); //return value is the source resource that will be copied to the destination resource HATE THIS
+	void CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource*& pSrcResource, void* returnAddress = _ReturnAddress()); //return value is the source resource that will be copied to the destination resource HATE THIS
 
 private:
 
