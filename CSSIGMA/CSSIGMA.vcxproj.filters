@@ -137,7 +137,7 @@
     <ClInclude Include="IObserver.h">
       <Filter>Resource Files\Observer</Filter>
     </ClInclude>
-    <ClInclude Include="IEvent.h">
+    <ClInclude Include="Event.h">
       <Filter>Resource Files\Observer</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">

@@ -173,7 +173,7 @@
     <ClInclude Include="DxHooks.h" />
     <ClInclude Include="FunctionScrapper.h" />
     <ClInclude Include="ID3D11Hooker.h" />
-    <ClInclude Include="IEvent.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="imguiincl.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
