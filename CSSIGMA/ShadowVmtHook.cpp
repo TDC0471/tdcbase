@@ -13,7 +13,7 @@ ShadowVmtHook::ShadowVmtHook(const void* ptr_to_class, size_t vtableSize, std::i
 
     baseclass = const_cast<void*>(ptr_to_class); //just doing this so the functions sig is a bit more clear
 
-    newvmt = reinterpret_cast<void**>(VirtualAlloc(NULL, vtableSize * sizeof(void*), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
+    newvmt = reinterpret_cast<void**>(malloc(sizeof(void*) * vtableSize));
     void** vtable = *reinterpret_cast<void***>(baseclass);
 
     std::memcpy(newvmt, vtable, vtableSize * sizeof(void*));
@@ -34,7 +34,7 @@ void ShadowVmtHook::deleteHook()
 {
     if (newvmt) {
         *reinterpret_cast<void***>(baseclass) = oldvmt;
-        VirtualFree(newvmt, 0, MEM_RELEASE);
+        free(newvmt);
         newvmt = nullptr;
     }
 }

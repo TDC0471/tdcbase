@@ -2,6 +2,9 @@
 #include "memory.h"
 #include "utils.h"
 
+//define static Event<> OnPresent;
+Event<> Renderer::OnPresent;
+
 void Renderer::Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
 {
 	//c::printf("Present called\n");
@@ -60,6 +63,7 @@ void Renderer::Present(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags
 	ImGui::NewFrame();
 
 	//call callbacks
+	OnPresent.Notify();
 
 	ImGui::Begin("ImGui Window");
 	ImGui::Checkbox("Streamproof", &streamproof);
@@ -103,6 +107,10 @@ void Renderer::CopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstR
 	}
 	
 
+}
+
+void Renderer::ResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
+{
 }
 
 bool Renderer::copybb(IDXGISwapChain* pSwapChain, ID3D11DeviceContext* pContext)

@@ -16,9 +16,11 @@
 
 DWORD WINAPI MainThread(HMODULE hmod)
 {
+#ifdef DEBUG
 	AllocConsole();
 	FILE* fp;
 	freopen_s(&fp, "CONOUT$", "w", stdout);
+#endif
 
 	c::printf("Hello from DLL!\n");
 
@@ -29,6 +31,12 @@ DWORD WINAPI MainThread(HMODULE hmod)
 	{
 		Sleep(100);
 	}
+
+#ifdef DEBUG
+	fclose(fp);
+	FreeConsole();
+#endif
+
 
 	FreeLibraryAndExitThread(hmod, 0);
 	return TRUE;
@@ -51,7 +59,7 @@ BOOL WINAPI DllMain(HMODULE hMod, DWORD dwReason, LPVOID lpReserved)
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls(hMod);
 		hModule = hMod;
-#ifdef MANUALMAPPER
+#ifdef MANUALMAPPER //if we are using manual mapper, we need to call the main thread manually. Not fully implemented cause it depends on the injector
 		MainThread(hMod);
 #else
 		CreateThread(nullptr, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(MainThread), hMod, 0, nullptr);

@@ -35,6 +35,8 @@ namespace DxHooks
 
 	HRESULT hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 
+	HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+
 	//void** _ppSurface;
 //f_GetBuffer oGetBuffer;
 //HRESULT hkGetBuffer(IDXGISwapChain* pSwapChain, UINT Buffer, REFIID riid, void** ppSurface)
@@ -45,7 +47,8 @@ namespace DxHooks
 //	return oGetBuffer(pSwapChain, Buffer, riid, ppSurface);
 //}
 
-
 	void hkCopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource);
+
+	void shutdown();
 
 };

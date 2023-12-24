@@ -122,13 +122,13 @@ private:
     }
 
     template<typename T>
-    static ptrdiff_t indexOf(T ptr) {
+     static ptrdiff_t indexOf(T ptr) {
         auto func = reinterpret_cast<tablemethodptr_t&>(ptr);
         return (instance->*func)();
     }
 public:
     template<typename T>
-    static ptrdiff_t indexOfVirtual(T ptr) {
+    static unsigned int indexOfVirtual(T ptr) {
         return indexOf(ptr) / sizeof(void*);
     }
 

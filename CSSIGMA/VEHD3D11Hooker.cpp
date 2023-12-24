@@ -53,8 +53,8 @@ void VEHD3D11Hooker::init()
 						ID3D11DeviceContext* pContext{};
 						pDevice->GetImmediateContext(&pContext);
 
-						swapChainHook = new ShadowVmtHook{ swapChain, 18, { {&DxHooks::hkPresent, 8 } } }; //use functionScrapper to get the index of the function
-						deviceContextHook = new ShadowVmtHook{ pContext, 108, { { &DxHooks::hkCopyResource, 47 } } };
+						swapChainHook = new ShadowVmtHook{ swapChain, 18, { {&DxHooks::hkPresent, FunctionScrapper::indexOfVirtual(&IDXGISwapChain::Present) }, {&DxHooks::hkResizeBuffers, FunctionScrapper::indexOfVirtual(&IDXGISwapChain::ResizeBuffers) }}}; //use functionScrapper to get the index of the function
+						deviceContextHook = new ShadowVmtHook{ pContext, 108, { { &DxHooks::hkCopyResource, FunctionScrapper::indexOfVirtual(&ID3D11DeviceContext::CopyResource) }}};
 						delete vehHook;
 						return EXCEPTION_CONTINUE_EXECUTION;
 					}

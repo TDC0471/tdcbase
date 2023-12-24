@@ -14,6 +14,15 @@ void DxHooks::hkCopyResource(ID3D11DeviceContext* pContext, ID3D11Resource* pDst
 	oCopyResource(pContext, pDstResource, pSrcResource);
 }
 
+void DxHooks::shutdown()
+{
+	//unhook winproc
+	SetWindowLongPtr(renderer->GetWindow(), GWLP_WNDPROC, (LONG_PTR)oWndProc);
+
+	delete renderer;
+	delete hooker;
+}
+
 HRESULT DxHooks::hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
 {
 	using f_Present = HRESULT(__stdcall*)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
@@ -31,6 +40,16 @@ HRESULT DxHooks::hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT F
 
 
 	return oPresent(pSwapChain, SyncInterval, Flags);
+}
+
+HRESULT DxHooks::hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
+{
+	using f_ResizeBuffers = HRESULT(__stdcall*)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+	static f_ResizeBuffers oResizeBuffers = (f_ResizeBuffers)hooker->getSwapChainVmtFunction(FunctionScrapper::indexOfVirtual(&IDXGISwapChain::ResizeBuffers)); //initalized at first call
+
+	renderer->ResizeBuffers(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+
+	return oResizeBuffers(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
 }
 
 IDXGISwapChain* DxHooks::dummySwapchain()

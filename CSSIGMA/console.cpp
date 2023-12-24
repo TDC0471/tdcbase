@@ -57,9 +57,11 @@ int c::printf(const char* fmt, ...)
 {
     va_list args;
 
+#ifdef DEBUG
     va_start(args, fmt);
     vprintf(fmt, args);
-    va_end(args);
+    va_end(args); 
+#endif // DEBUG
 
     va_start(args, fmt);
     char buffer[MAXPRINTSIZE];
