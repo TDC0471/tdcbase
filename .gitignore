@@ -36,3 +36,13 @@
 *.ipch
 *.vsidx
 *.lock
+*.recipe 
+*.ilk
+*.log
+*.pdb
+*.tlog
+*.lastbuildstate
+*.idb
+*.iobj
+*.ipdb
+*.json
