@@ -46,3 +46,6 @@
 *.iobj
 *.ipdb
 *.json
+*.lock
+*.suo
+*.db
